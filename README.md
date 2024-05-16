@@ -1,6 +1,8 @@
 # tugas_uts
 
 A new Flutter project.
+1. commit halaman home selesai
+2. commit halaman catalog selesai
 
 ## Getting Started
 
