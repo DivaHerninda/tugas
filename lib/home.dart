@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'api_service.dart';
+import 'product.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Future<List<Product>> futureProducts;
+
+  @override
+  void initState() {
+    super.initState();
+    futureProducts = ApiService.fetchProducts(); // Panggil API untuk mendapatkan produk
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,18 +115,31 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            // Item Produk Flash Sale
+            // Item Produk dari API
             SizedBox(height: 8.0),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _buildFlashSaleItem('Product 1', '\$10.00', 'product1.jpg'),
-                  _buildFlashSaleItem('Product 2', '\$20.00', 'product2.jpg'),
-                  _buildFlashSaleItem('Product 3', '\$30.00', 'product3.jpg'),
-                  _buildFlashSaleItem('Product 4', '\$40.00', 'product4.jpg'),
-                ],
-              ),
+            FutureBuilder<List<Product>>(
+              future: futureProducts,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  final products = snapshot.data!;
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: products.map((product) {
+                        return _buildFlashSaleItem(
+                          product.name,
+                          '\$${product.price}', // Sesuaikan dengan model Anda
+                          product.image, // Sesuaikan dengan model Anda
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),
