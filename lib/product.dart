@@ -10,7 +10,7 @@ class Product {
     return Product(
       name: json['name'],
       description: json['description'],
-      price: json['price'],
+      price: json['price'], //
       image: json['image'],
     );
   }
