@@ -3,7 +3,7 @@
 1. Membuat design slicing di figma
 2. Membuat project slicing halaman home
 3. Membuat project slicing halaman catalog
-4. Membuat project slicing halaman
+4. Membuat project slicing halaman product
 5. Membuat project consume API
    
 A new Flutter project.
