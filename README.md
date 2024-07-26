@@ -1,5 +1,11 @@
 # tugas_uts
 
+1. Membuat design slicing di figma
+2. Membuat project slicing halaman home
+3. Membuat project slicing halaman catalog
+4. Membuat project slicing halaman
+5. Membuat project consume API
+   
 A new Flutter project.
 
 ## Getting Started
